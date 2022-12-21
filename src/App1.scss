@@ -1,0 +1,159 @@
+.App {
+text-align: center;
+}
+
+.App-logo {
+height: 40vmin;
+pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+.App-logo {
+    animation: App-logo-spin infinite 20s linear;
+}
+}
+
+.App-header {
+background-color: #282c34;
+min-height: 100vh;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+font-size: calc(10px + 2vmin);
+color: white;
+}
+
+.App-link {
+color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+from {
+    transform: rotate(0deg);
+}
+to {
+    transform: rotate(360deg);
+}
+}
+//=========================================================================
+.editor{
+display: flex;
+justify-content: center;
+align-items: center;
+width: 100vw;
+height: 100vh;
+
+    .card{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid #b4b7be;
+    width: 80%;
+    height: 70%;
+
+        .card-body{
+                width: 70%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 70%;
+                flex-direction: column;
+                    .image-sec{
+                        width: 350px;
+                        height: 350px;
+                            .Img{
+                                width: 100%;
+                                height: 100%;
+                                background-color: #a8a8a8;
+                                display: flex;
+                                justify-content: center;
+                                align-items: center; 
+                                overflow: hidden;
+                                img{
+                                    object-fit: scale-down;
+                                    width: 100%;
+                                    height: 100%;
+                                    }
+                                
+                                }
+                            .select-img{
+                                margin: 5px;
+                                .btn{
+                                    width: 20%;
+                                    border: 1px solid #888;
+                                    height: 30px;
+                                    cursor: pointer;
+                                    background-color: beige;
+                                    }
+                                }
+                    }
+
+                    .edit-bar{
+                        width:100%;
+
+                            .effects{
+                                .effect-bar{
+                                        width: 100%;
+                                            button{
+                                                height: 39px;
+                                                    width: 24%;
+                                                    margin: 5px;
+                                                    border: 1px solid #3c60a8b7;
+                                                    background-color: #b4b7be;
+                                                    cursor: pointer;
+                                                    border-radius: 2px;
+                                                    font-size: 20px;
+                                                    line-height: 7px;
+                                                    &.active{
+                                                        background-color: #3c60a8b7;
+                                                    }
+                                                }
+                                            .range{
+
+                                            }
+                                    }
+                            }
+                            .rotate-bar{
+                                .icon {
+                                    display: flex;
+                                    justify-content: center;
+                                        .rot-left {
+                                            height: 30px;
+                                            width: 20%;
+                                            margin-left: 5px;
+                                        }
+                                    }
+                            }
+                            .store{
+                                .btn{
+                                    width: 30%;
+                                    padding: 5px;
+                                    margin: 20px;
+                                    outline: none;
+                                    border: none;
+                                    color: #fff;
+                                    height: 40px;
+                                    font-size: 20px;
+                                }
+                                .save{
+                                    background-color: #3e58ad;
+                                }
+                                .rest{
+                                    background-color: #7e1919;
+                                }
+                            }
+                    }
+
+            }
+    }
+}
+
+
+
+
+
+
+
+
