@@ -1,6 +1,8 @@
 import React,{useState} from 'react'
 import ReactCrop from 'react-image-crop'
 import 'react-image-crop/dist/ReactCrop.css'
+import store from './LinkedList'
+//import "./App1.scss"
 //import Effects from './Efects';
 //import ImagePrev from './ImagePrev';
 
@@ -26,6 +28,18 @@ function ImageEditor() {
                     ...state,
                     image:reader.result
                 })
+
+                const stateData ={
+                    image:reader.result,
+                    grayScale:0,
+                    brightness:100,
+                    saturate:100,
+                    contrast:100,
+                    rotate:0,
+                    horizintal:1,
+                    vertical:1
+                }
+                store.insert(stateData)
             }
             reader.readAsDataURL(e.target.files[0])
         }
@@ -58,6 +72,9 @@ function ImageEditor() {
             ...state,
             rotate:state.rotate+90
         })
+        const stateData =state
+            stateData.rotate=state.rotate+90
+            store.insert(stateData)
     }
     const RotRight=()=>
     {
@@ -65,6 +82,9 @@ function ImageEditor() {
             ...state,
             rotate:state.rotate-90
         })
+        const stateData =state
+        stateData.rotate=state.rotate-90
+        store.insert(stateData)
     }
     const LeftRight=()=>
     {
@@ -72,6 +92,9 @@ function ImageEditor() {
             ...state,
             horizintal:state.horizintal===1?-1:1
         })
+        const stateData =state
+        stateData.horizintal=state.horizintal===1?-1:1
+        store.insert(stateData)
     }
     const topBottom=()=>
     {
@@ -79,6 +102,9 @@ function ImageEditor() {
             ...state,
             vertical:state.vertical===1?-1:1
         })
+        const stateData =state
+        stateData.vertical=state.vertical===1?-1:1
+        store.insert(stateData)
     }
     const ImageCrop=()=>
     {
@@ -105,6 +131,18 @@ function ImageEditor() {
         })
 
     }
+    const redo=()=>{
+        const data = store.redo()
+        if (data){
+            setState(data)
+        }
+    }
+    const undo=()=>{
+        const data = store.undo()
+        if (data){
+            setState(data)
+        }
+    }
     const Save=()=>{
         const canava=document.createElement("canvas");
         //const scaleX=details.naturalWidth/details.width;
@@ -113,10 +151,9 @@ function ImageEditor() {
         canava.height=details.naturalHeight
         const ctx =canava.getContext("2d")
         ctx.filter=`brightness(${state.brightness}%) saturate(${state.saturate}%) contrast(${state.contrast}%) grayscale(${state.grayScale}%)`
-        //ctx.transform=`rotate(${}deg) scale(${state.vertical},${state.horizintal} translate(${canava.width/2},${canava.height/2}))`
+        ctx.transform=` scale(${state.vertical},${state.horizintal })`
+        ctx.translate(canava.width/2 ,canava.height/2)
         ctx.rotate(state.rotate * Math.PI/100)
-        ctx.scale(state.vertical,state.horizintal)
-        ctx.translate(canava.width/2,canava.height/2)
         ctx.drawImage(
             details,
             canava.width/2,
@@ -130,6 +167,21 @@ function ImageEditor() {
         link.click()
     
     }
+    const Rest=()=>{
+        setState({
+            
+                ...state,
+                grayScale:0,
+                brightness:100,
+                saturate:100,
+                contrast:100,
+                rotate:0,
+                horizintal:1,
+                vertical:1
+            
+        })
+        store.rest()
+    }
  return (
     <>
         <div className='editor'>
@@ -140,23 +192,23 @@ function ImageEditor() {
 
                 <div className='card-body'>
                         <div className='image-sec'>
-                        <div className='Img'>
-                        {
-                            state.image?<ReactCrop crop={crop} onChange={c => setCrop(c)}>
-                            <img onLoad={(e)=>setDetails(e.currentTarget)} style={{filter:`brightness(${state.brightness}%) saturate(${state.saturate}%) contrast(${state.contrast}%) grayscale(${state.grayScale}%)`, transform:`rotate(${state.rotate}deg) scale(${state.vertical},${state.horizintal})`}} src={state.image} alt="Loading..."/></ReactCrop>:<label className='Choose' htmlFor="choose">Choose Image</label>
-                        }
-                        </div>
+                            <div className='Img'>
+                            {
+                                state.image?<ReactCrop crop={crop} onChange={c => setCrop(c)}>
+                                <img onLoad={(e)=>setDetails(e.currentTarget)} style={{filter:`brightness(${state.brightness}%) saturate(${state.saturate}%) contrast(${state.contrast}%) grayscale(${state.grayScale}%)`, transform:`rotate(${state.rotate}deg) scale(${state.vertical},${state.horizintal})`}} src={state.image} alt="Loading..."/></ReactCrop>:<label className='Choose' htmlFor="choose">Choose Image</label>
+                            }
+                            </div>
                         
-                    <div className='select-img'>
-                        <button className='undo btn'>Undo</button>
-                        <button className='redo btn'>Redo</button>
-                        {
-                            crop&&<button onClick={ImageCrop} className='crop btn'>Crop</button>
-                        }
-                        <label className='Choose btn' htmlFor="choose">Choose Image</label>
-                        <input type="file" onChange={ShowImage} id="choose" hidden/>
-                    </div>
-                    </div>
+                            <div className='select-img'>
+                                <button onClick={undo} className='undo btn'>Undo</button>
+                                <button onClick={redo} className='redo btn'>Redo</button>
+                                {
+                                    crop&&<button onClick={ImageCrop} className='crop btn'>Crop</button>
+                                }
+                                <label className='Choose btn' htmlFor="choose">Choose Image</label>
+                                <input type="file" onChange={ShowImage} id="choose" hidden/>
+                            </div>
+                        </div>
                     {
                         details&&<div className='edit-bar'>
                             <div className='effects'>
@@ -172,11 +224,11 @@ function ImageEditor() {
                                                 
                                             }
                                             <div>
-                                            <input  name={filter.name} onChange={handleChange}  value={state[filter.name]}  max={filter.maxValue} type="range" /><span>{Math.floor(state[filter.name]/2)}</span>
+                                            <input   name={filter.name} onChange={handleChange}  value={state[filter.name]}  max={filter.maxValue} type="range" className='range' /><span>{Math.floor(state[filter.name]/2)}</span>
                                             </div>
                                         </div>
                                 </div>
-                                <div className='rotate-bar'>
+                            <div className='rotate-bar'>
                                     <label>Rotate</label>
                                     <div className='icon'>
                                         <button onClick={RotLeft} className='rot-left'>Rotate Right</button> 
@@ -185,9 +237,9 @@ function ImageEditor() {
                                         <button onClick={topBottom} className='rot-left'> {" <> "} </button> 
                                     </div>
                                 </div>
-                                <div className='store'>
+                            <div className='store'>
                                     <button className='save  btn' onClick={Save}>Save</button>
-                                    <button className='rest btn'>Rest</button>
+                                    <button className='rest btn' onClick={Rest}>Rest</button>
 
                                 </div>
                             </div>

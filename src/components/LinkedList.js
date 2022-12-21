@@ -6,7 +6,7 @@ class node{
     }
 }
 
-class LinkedList{
+class linkedList{
     constructor(){
         this.head=null
         this.current=null
@@ -38,7 +38,7 @@ class LinkedList{
             return null
         }
     }
-    undo=()=>{
+    undo = ()=>{
         const preData=this.current.pre
         if (preData){
             this.current=preData
@@ -48,6 +48,9 @@ class LinkedList{
             return null
         }
     }
+    rest=()=>{
+        
+    }
 }
- const store =new LinkedList()
+ const store =new linkedList()
 export default store;
