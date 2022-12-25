@@ -9,10 +9,10 @@
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+    -webkit-animation: App-logo-spin infinite 20s linear;
+            animation: App-logo-spin infinite 20s linear;
   }
 }
-
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
@@ -28,7 +28,7 @@
   color: #61dafb;
 }
 
-@keyframes App-logo-spin {
+@-webkit-keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
   }
@@ -37,7 +37,14 @@
   }
 }
 
-
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
 .editor {
   display: flex;
   justify-content: center;
@@ -64,11 +71,11 @@
 }
 .editor .card .card-body .image-sec {
   width: 350px;
-  height: 300px;
+  height: 350px;
 }
 .editor .card .card-body .image-sec .Img {
   width: 100%;
-  height: 80%;
+  height: 100%;
   background-color: #a8a8a8;
   display: flex;
   justify-content: center;
@@ -76,6 +83,8 @@
   overflow: hidden;
 }
 .editor .card .card-body .image-sec .Img img {
+  -o-object-fit: scale-down;
+     object-fit: scale-down;
   width: 100%;
   height: 100%;
 }
@@ -132,129 +141,5 @@
   background-color: #3e58ad;
 }
 .editor .card .card-body .edit-bar .store .rest {
-  background-color: #7e1919;}
-
-/* .editor{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100vw;
-  height: 100vh;
-}
-.card{
-  display: flex;
-    justify-content: center;
-    flex-direction: column;
-    align-items: center;
-    border: 1px solid #b4b7be;
-    width: 80%;
-    height: 70%;
-}
-.card-body{
-  width: 70%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 70%;
-    flex-direction: column;
-}
-.active{
-  background-color: #3c60a8b7;
-}
-.card-head{
-
-}
-.effects{
-
-}
-.effects span{
-
-}
-.edit-bar{
-  width:100%
-}
-.effects .effect-bar{
-  width: 100%;
-}
-.effects .effect-bar button{
-  height: 39px;
-    width: 24%;
-    margin: 5px;
-    border: 1px solid #3c60a8b7;
-    background-color: #b4b7be;
-    cursor: pointer;
-    border-radius: 2px;
-    font-size: 20px;
-    line-height: 7px;
-}
-.effects .effect-bar button.active{
-  background-color: #3c60a8b7;
-}
-
-.image-sec{
-  width: 350px;
-  height: 300px;
-}
-
-.image-sec .Img{
-  width: 100%;
-  height: 80%;
-  background-color: #a8a8a8;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden;
-
-}
-.image-sec .Img img{
-  transition:1s;
-  width: 100%;
-  height: 100%;
-}
-.select-img{
-  margin: 5px;
-}
-
-.select-img .btn{
-    width: 20%;
-    border: 1px solid #888;
-    height: 30px;
-    cursor: pointer;
-    background-color: beige;
-}
-.icon {
-  display: flex;
-  justify-content: center;
-}
-.icon .rot-left {
-  height: 30px;
-  width: 20%;
-  margin-left: 5px;
-}
-.icon {
-
-}
-.icon {
-
-}
-.icon {
-
-}
-.store .btn{
-  
-    width: 30%;
-    padding: 5px;
-    margin: 20px;
-    outline: none;
-    border: none;
-    color: #fff;
-    height: 40px;
-    font-size: 20px;
-}
-.store .save{
-  background-color: #3e58ad;
-}
-.store .rest{
   background-color: #7e1919;
-} 
-*/
+}/*# sourceMappingURL=App1.css.map */
