@@ -1,4 +1,4 @@
-import './App1.css';
+import './App.css';
 import ImageEditor from './components/ImageEditor';
 
 function App() {

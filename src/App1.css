@@ -70,8 +70,10 @@
   flex-direction: column;
 }
 .editor .card .card-body .image-sec {
-  width: 350px;
   height: 350px;
+  -o-object-fit: scale-down;
+     object-fit: scale-down;
+  width: 350px;
 }
 .editor .card .card-body .image-sec .Img {
   width: 100%;
@@ -100,6 +102,9 @@
 }
 .editor .card .card-body .edit-bar {
   width: 100%;
+}
+.editor .card .card-body .edit-bar .effects {
+  margin: 20px;
 }
 .editor .card .card-body .edit-bar .effects .effect-bar {
   width: 100%;
